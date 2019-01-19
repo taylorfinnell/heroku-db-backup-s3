@@ -46,8 +46,8 @@ if [[ -z "$S3_BUCKET_PATH" ]]; then
   echo "Missing S3_BUCKET_PATH variable"
   exit 1
 fi
-if [[ -z "$DBURL_FOR_BACKUP" ]]; then
-  echo "Missing DBURL_FOR_BACKUP variable"
+if [[ -z "$DATABASE_URL" ]]; then
+  echo "Missing DATABASE_URL variable"
   exit 1
 fi
 
@@ -58,7 +58,7 @@ printf "${Green}Start dump${EC}"
 # curl --progress-bar -o /tmp/"${DBNAME}_${FILENAME}" $BACKUP_URL
 # gzip /tmp/"${DBNAME}_${FILENAME}"
 
-time pg_dump $DBURL_FOR_BACKUP | gzip >  /tmp/"${DBNAME}_${FILENAME}".gz
+time pg_dump $DATABASE_URL | gzip >  /tmp/"${DBNAME}_${FILENAME}".gz
 
 #EXPIRATION_DATE=$(date -v +"2d" +"%Y-%m-%dT%H:%M:%SZ") #for MAC
 EXPIRATION_DATE=$(date -d "$EXPIRATION days" +"%Y-%m-%dT%H:%M:%SZ")
